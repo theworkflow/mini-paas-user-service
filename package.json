@@ -1,0 +1,17 @@
+{
+  "name": "user-service",
+  "version": "0.0.0",
+  "description": "User service to the Mini PaaS Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mini",
+    "paas",
+    "user",
+    "service"
+  ],
+  "author": "Jeremiah Harlan <jeremiah.harlan@gmail.com>",
+  "license": "ISC"
+}
