@@ -13,5 +13,8 @@
     "service"
   ],
   "author": "Jeremiah Harlan <jeremiah.harlan@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "joi": "13.1.1"
+  }
 }
