@@ -10,14 +10,12 @@ services:
     env_file: .env
     environment:
       NODE_ENV: development
-      LOG_LEVEL: debug
     volumes:
       - ./config:/usr/src/app/config
       - ./controllers:/usr/src/app/controllers
       - ./lib:/usr/src/app/lib
       - ./models:/usr/src/app/models
       - ./server:/usr/src/app/server
-      # - .:/usr/src/app
     ports:
       - 8000:80
     networks:

@@ -4,9 +4,6 @@ const mongo = require('./components/mongo')
 const loggly = require('./components/loggly')
 
 const envVars = {
-  LOG_LEVEL: joi.string()
-    .allow(['fatal', 'error', 'warn', 'info', 'debug', 'trace'])
-    .default('info'),
   PORT: joi.number()
     .integer()
     .min(0)
@@ -20,10 +17,7 @@ if (error) throw new Error(`Config validation error: ${error.message}`)
 
 const config = {
   host: env.HOST,
-  port: env.PORT,
-  log: {
-    level: env.LOG_LEVEL
-  }
+  port: env.PORT
 }
 
 module.exports = Object.assign({}, config, mongo, loggly)
