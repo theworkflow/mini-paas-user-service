@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "code": "5.1.2",
+    "lab": "15.2.0",
     "standard": "10.0.3"
   }
 }
