@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  user-service:
+    image: harlanj/minipass-user-service:latest
+    container_name: user-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    environment:
+      NODE_ENV: development
+      LOG_LEVEL: debug
+    volumes:
+      - ./config:/usr/src/app/config
+      - ./controllers:/usr/src/app/controllers
+      - ./lib:/usr/src/app/lib
+      - ./models:/usr/src/app/models
+      - ./server:/usr/src/app/server
+      # - .:/usr/src/app
+    ports:
+      - 8000:80
+    networks:
+      - user-service
+  mongo:
+    image: mongo:3.7.1-jessie
+    container_name: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - user-service
+networks:
+  user-service:
