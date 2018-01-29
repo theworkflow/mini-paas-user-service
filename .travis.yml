@@ -1,0 +1,26 @@
+sudo: required
+services:
+  - docker
+env:
+  - DOCKER_COMPOSE_VERSION=1.18.0
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+install:
+  - docker-compose build test
+script:
+  - docker-compose run test
+after_success:
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - export TAG="$(echo $TRAVIS_COMMIT | head -c 8)"
+  - docker tag $DOCKER_USERNAME/$DOCKER_REPO:latest $DOCKER_USERNAME/$DOCKER_REPO:$TAG
+  - docker push $DOCKER_USERNAME/$DOCKER_REPO:$TAG;
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker push $DOCKER_USERNAME/$DOCKER_REPO:latest;
+    fi
+  - if [ "$TRAVIS_BRANCH" != "master" ]; then
+    docker tag $DOCKER_USERNAME/$DOCKER_REPO:latest $DOCKER_USERNAME/$DOCKER_REPO:beta;
+    docker push $DOCKER_USERNAME/$DOCKER_REPO:beta;
+    fi

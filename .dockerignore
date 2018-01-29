@@ -1,6 +1,12 @@
-node_modules
-Dockerfile
-docker-compose.yml
 .gitignore
 .dockerignore
 .env.example
+.env
+.travis.yml
+.git
+
+node_modules
+Dockerfile
+Dockerfile-service
+docker-compose.yml
+package-lock.json

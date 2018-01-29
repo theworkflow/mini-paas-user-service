@@ -2,12 +2,11 @@ version: '3'
 
 services:
   user-service:
-    image: harlanj/minipass-user-service:latest
+    image: harlanj/mini-paas-user-service:latest
     container_name: user-service
     build:
       context: .
       dockerfile: Dockerfile
-    env_file: .env
     environment:
       NODE_ENV: development
     volumes:
@@ -27,5 +26,20 @@ services:
       - 27017:27017
     networks:
       - user-service
+  test:
+    image: harlanj/mini-paas-user-service:latest
+    container_name: test
+    build:
+      context: .
+      dockerfile: Dockerfile-service
+    environment:
+      NODE_ENV: test
+      MONGO_URI: mongodb://mongo:27017/test
+      LOGGLY_TOKEN: testToken
+      LOGGLY_SUBDOMAIN: testDomain
+    networks:
+      - user-service
+    depends_on:
+      - mongo
 networks:
   user-service:
