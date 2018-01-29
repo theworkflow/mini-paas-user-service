@@ -2,7 +2,7 @@ version: '3'
 
 services:
   user-service:
-    image: harlanj/minipass-user-service:latest
+    image: harlanj/mini-paas-user-service:latest
     container_name: user-service
     build:
       context: .
@@ -28,7 +28,7 @@ services:
     networks:
       - user-service
   test:
-    image: harlanj/minipass-user-service:latest
+    image: harlanj/mini-paas-user-service:latest
     container_name: test
     build:
       context: .
