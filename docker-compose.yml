@@ -27,5 +27,20 @@ services:
       - 27017:27017
     networks:
       - user-service
+  test:
+    image: harlanj/minipass-user-service:latest
+    container_name: test
+    build:
+      context: .
+      dockerfile: Dockerfile-service
+    environment:
+      NODE_ENV: test
+      MONGO_URI: mongodb://mongo:27017/test
+      LOGGLY_TOKEN: testToken
+      LOGGLY_SUBDOMAIN: testDomain
+    networks:
+      - user-service
+    depends_on:
+      - mongo
 networks:
   user-service:
