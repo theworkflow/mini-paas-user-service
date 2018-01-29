@@ -7,7 +7,7 @@
     "lint": "standard",
     "start": "node index",
     "test": "npm run lint && npm run unit",
-    "unit": "lab -cv --threshold 100"
+    "unit": "lab -v"
   },
   "keywords": [
     "mini",
