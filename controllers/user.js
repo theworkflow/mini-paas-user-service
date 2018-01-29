@@ -3,7 +3,7 @@ const Omit = require('lodash.omit')
 const Waterfall = require('run-waterfall')
 
 const { hashPassword } = require('../lib/helpers')
-const { BLACKLISTED_PROPS } = require('../lib/constants')
+const { BLACKLISTED_PROPS, UPDATABLE_PROPS } = require('../lib/constants')
 const Logger = require('../lib/logger')
 const UserModel = require('../models/user')
 
@@ -44,6 +44,11 @@ exports.update = (userId, payload, done) => {
     const data = Object.assign(Omit(payload, BLACKLISTED_PROPS), {
       updatedAt: new Date()
     })
+
+    if (hasInvalidKeys(data)) {
+      Logger.warn('invalid update properties', data)
+      return done(new Errors.BadRequestError('Invalid update properties'))
+    }
 
     UserModel.findByIdAndUpdate(userId, data, (err) => {
       if (err) {
@@ -127,4 +132,10 @@ const findById = (id, { errorType, stripProps = false }, done) => {
 
     done(null, user)
   })
+}
+
+const hasInvalidKeys = data => {
+  const remainingData = Omit(data, UPDATABLE_PROPS)
+  if (Object.keys(remainingData).length) return true
+  return false
 }
