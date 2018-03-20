@@ -25,7 +25,7 @@
     "joi": "13.1.1",
     "lodash.omit": "4.5.0",
     "mongoose": "5.0.2",
-    "restify": "6.3.4",
+    "restify": "7.0.0",
     "restify-errors": "5.0.0",
     "run-waterfall": "1.1.3"
   },
